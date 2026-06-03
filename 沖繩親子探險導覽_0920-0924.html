@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌺 沖繩親子探險記 9/20-9/24｜連假特化版</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: linear-gradient(135deg, #E0F7FA 0%, #FFF8E1 50%, #FFE0B2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #37474F;
+    line-height: 1.7;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .hero {
+    background: linear-gradient(135deg, #4DD0E1 0%, #80DEEA 50%, #FFAB91 100%);
+    border-radius: 30px;
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(77, 208, 225, 0.3);
+    position: relative; overflow: hidden;
+  }
+  .hero::before { content: "🌺"; position: absolute; top: 15px; left: 20px; font-size: 40px; opacity: 0.6; }
+  .hero::after { content: "🐠"; position: absolute; bottom: 15px; right: 20px; font-size: 40px; opacity: 0.6; }
+  .hero h1 { font-size: 34px; margin-bottom: 10px; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .hero .subtitle { font-size: 17px; opacity: 0.95; }
+  .hero .dates { display: inline-block; background: rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 20px; margin-top: 15px; font-weight: 600; backdrop-filter: blur(10px); }
+
+  /* SILVER WEEK 警告 */
+  .silver-week {
+    background: linear-gradient(135deg, #FFE0B2, #FFCDD2);
+    border: 3px dashed #E65100;
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    color: #BF360C;
+  }
+  .silver-week strong { display: block; font-size: 17px; margin-bottom: 6px; }
+  .silver-week .holidays {
+    display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .silver-week .holiday-tag {
+    background: white; padding: 4px 10px; border-radius: 10px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 25px;
+  }
+  .stat-card {
+    background: white; border-radius: 20px;
+    padding: 16px 10px; text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    border: 2px solid transparent; transition: all 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); border-color: #4DD0E1; }
+  .stat-card .emoji { font-size: 28px; }
+  .stat-card .label { font-size: 12px; color: #78909C; margin-top: 4px; }
+  .stat-card .value { font-size: 16px; font-weight: 700; color: #FF6F61; margin-top: 2px; }
+
+  .section {
+    background: white; border-radius: 24px;
+    padding: 25px; margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .section-title {
+    font-size: 22px; font-weight: 700; color: #00838F;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-title::after {
+    content: ""; flex: 1; height: 3px;
+    background: linear-gradient(to right, #4DD0E1, transparent);
+    border-radius: 2px; margin-left: 8px;
+  }
+
+  .map-container {
+    background: linear-gradient(180deg, #B3E5FC 0%, #E1F5FE 100%);
+    border-radius: 20px; padding: 20px; text-align: center;
+  }
+  .map-container svg { max-width: 100%; height: auto; }
+  .map-legend {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 12px; margin-top: 15px; font-size: 13px;
+  }
+  .legend-item {
+    background: white; padding: 6px 12px; border-radius: 14px;
+    display: flex; align-items: center; gap: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .day-card {
+    background: white; border-radius: 22px;
+    margin-bottom: 18px; overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    border-left: 6px solid;
+  }
+  .day-card.day-1 { border-left-color: #FFAB91; }
+  .day-card.day-2 { border-left-color: #80DEEA; }
+  .day-card.day-3 { border-left-color: #FFD180; }
+  .day-card.day-4 { border-left-color: #A5D6A7; }
+  .day-card.day-5 { border-left-color: #CE93D8; }
+
+  .day-header {
+    padding: 18px 22px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .day-1 .day-header { background: linear-gradient(135deg, #FFCCBC, #FFE0B2); }
+  .day-2 .day-header { background: linear-gradient(135deg, #B2EBF2, #B3E5FC); }
+  .day-3 .day-header { background: linear-gradient(135deg, #FFE082, #FFF59D); }
+  .day-4 .day-header { background: linear-gradient(135deg, #C8E6C9, #DCEDC8); }
+  .day-5 .day-header { background: linear-gradient(135deg, #E1BEE7, #F8BBD0); }
+
+  .day-number {
+    background: white; width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800; color: #FF6F61;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  }
+  .day-info h3 { font-size: 18px; color: #37474F; margin-bottom: 2px; }
+  .day-info .day-date { font-size: 13px; color: #546E7A; }
+  .day-theme {
+    margin-left: auto; background: white;
+    padding: 4px 12px; border-radius: 14px;
+    font-size: 13px; font-weight: 600; color: #00838F;
+  }
+  .holiday-warning {
+    background: #FF6F61; color: white;
+    padding: 2px 8px; border-radius: 10px;
+    font-size: 11px; font-weight: 700;
+    margin-left: 6px;
+  }
+
+  .day-body { padding: 18px 22px; }
+  .schedule { list-style: none; }
+  .schedule li {
+    padding: 10px 0; border-bottom: 1px dashed #ECEFF1;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .schedule li:last-child { border-bottom: none; }
+  .time {
+    background: #FFF3E0; color: #E65100;
+    padding: 3px 10px; border-radius: 10px;
+    font-size: 12px; font-weight: 700; white-space: nowrap;
+    flex-shrink: 0; min-width: 64px; text-align: center;
+  }
+  .time.urgent { background: #FFCDD2; color: #C62828; }
+  .activity { flex: 1; font-size: 14px; }
+  .activity strong { color: #00838F; }
+  .activity .tag {
+    display: inline-block; background: #FFE0B2; color: #BF360C;
+    padding: 1px 8px; border-radius: 8px; font-size: 11px;
+    margin-left: 5px; font-weight: 600;
+  }
+  .activity .star { color: #FF6F61; font-weight: 700; }
+
+  .day-note {
+    background: #FFF8E1; padding: 10px 14px;
+    border-radius: 12px; margin-top: 12px;
+    font-size: 13px; color: #6D4C41; border-left: 3px solid #FFB74D;
+  }
+  .hotel-tag {
+    background: linear-gradient(135deg, #FFE082, #FFCC80);
+    padding: 12px 16px; border-radius: 14px;
+    margin-top: 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px;
+  }
+  .hotel-tag.upgrade {
+    background: linear-gradient(135deg, #B39DDB, #F8BBD0);
+    color: #4A148C;
+  }
+  .food-tag {
+    background: #FFF8E1; padding: 10px 14px;
+    border-radius: 12px; margin-top: 10px;
+    font-size: 13px; color: #6D4C41;
+  }
+
+  .hotels-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  }
+  .hotel-card {
+    border-radius: 18px; padding: 18px;
+    background: linear-gradient(135deg, #F5F5F5, #FAFAFA);
+    border: 2px solid #ECEFF1; transition: all 0.3s;
+  }
+  .hotel-card:hover { transform: translateY(-3px); border-color: #4DD0E1; }
+  .hotel-card.featured {
+    background: linear-gradient(135deg, #FFE0B2, #FFCCBC);
+    border-color: #FF8A65;
+  }
+  .hotel-card .night {
+    display: inline-block; background: white;
+    padding: 2px 10px; border-radius: 10px;
+    font-size: 12px; font-weight: 700;
+    color: #FF6F61; margin-bottom: 8px;
+  }
+  .hotel-card .name { font-size: 15px; font-weight: 700; color: #37474F; margin-bottom: 4px; }
+  .hotel-card .area { font-size: 12px; color: #78909C; margin-bottom: 8px; }
+  .hotel-card .features { font-size: 12px; color: #546E7A; line-height: 1.6; }
+  .hotel-card .price { margin-top: 8px; font-size: 14px; font-weight: 700; color: #00897B; }
+
+  .budget-table {
+    width: 100%; border-collapse: separate; border-spacing: 0 6px;
+  }
+  .budget-table td {
+    padding: 10px 14px; background: #F9FBE7; font-size: 14px;
+  }
+  .budget-table td:first-child { border-radius: 10px 0 0 10px; color: #546E7A; }
+  .budget-table td:last-child { border-radius: 0 10px 10px 0; text-align: right; font-weight: 700; color: #00695C; }
+  .budget-table tr.total td {
+    background: linear-gradient(135deg, #FFD180, #FFAB91);
+    color: #BF360C !important; font-size: 16px;
+  }
+  .budget-note {
+    background: #FFF3E0; padding: 12px 16px;
+    border-radius: 12px; font-size: 13px;
+    color: #5D4037; margin-top: 12px;
+    border-left: 4px solid #FFAB91;
+  }
+
+  .tips-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  }
+  .tip-box {
+    background: linear-gradient(135deg, #E0F2F1, #F1F8E9);
+    padding: 14px 16px; border-radius: 14px;
+    font-size: 13px; line-height: 1.6;
+  }
+  .tip-box.urgent { background: linear-gradient(135deg, #FFCDD2, #FFE0B2); }
+  .tip-box strong { color: #00695C; }
+  .tip-box.urgent strong { color: #C62828; }
+
+  .booking-list {
+    list-style: none; padding: 0;
+  }
+  .booking-list li {
+    padding: 12px 16px; background: #F1F8E9;
+    border-radius: 12px; margin-bottom: 8px;
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; border-left: 4px solid #66BB6A;
+  }
+  .booking-list li.priority { border-left-color: #FF6F61; background: #FFF3E0; }
+  .booking-list .step-num {
+    background: #66BB6A; color: white;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px; flex-shrink: 0;
+  }
+  .booking-list li.priority .step-num { background: #FF6F61; }
+
+  .checklist {
+    background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+    padding: 16px 20px; border-radius: 14px;
+    columns: 2; column-gap: 24px;
+  }
+  .checklist div { padding: 4px 0; font-size: 13px; break-inside: avoid; }
+
+  .footer {
+    text-align: center; padding: 25px;
+    font-size: 13px; color: #78909C;
+  }
+  .footer .heart { color: #FF6F61; }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .hotels-grid { grid-template-columns: 1fr; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .checklist { columns: 1; }
+    .hero h1 { font-size: 26px; }
+  }
+  @media print {
+    body { background: white; padding: 0; }
+    .section { box-shadow: none; border: 1px solid #ECEFF1; page-break-inside: avoid; }
+    .day-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <h1>🌺 沖繩親子探險記 🌺</h1>
+    <div class="subtitle">3 大人 ＋ 5 歲萌娃 ＋ 10 個月寶寶 ｜ 5 天 4 夜自駕｜連假特化版</div>
+    <div class="dates">📅 2026 / 09 / 20（日）～ 09 / 24（四）</div>
+  </div>
+
+  <!-- SILVER WEEK 警告 -->
+  <div class="silver-week">
+    <strong>⚠️ 撞上日本シルバーウィーク（白銀週）！</strong>
+    9/21-9/23 三天連假，飯店漲價 30-50%、景點滿到爆、58 號國道塞車。
+    <div class="holidays">
+      <span class="holiday-tag">9/21（一）敬老日</span>
+      <span class="holiday-tag">9/22（二）國民休日</span>
+      <span class="holiday-tag">9/23（三）秋分日</span>
+      <span class="holiday-tag">9/24（四）恢復平日 ✓</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="emoji">✈️</div><div class="label">航班</div><div class="value">06:45/20:20</div></div>
+    <div class="stat-card"><div class="emoji">👨‍👩‍👧‍👦</div><div class="label">人數</div><div class="value">3 大+2 小</div></div>
+    <div class="stat-card"><div class="emoji">🚙</div><div class="label">交通</div><div class="value">自駕 7 人座</div></div>
+    <div class="stat-card"><div class="emoji">💰</div><div class="label">全團不含購物</div><div class="value">~110K</div></div>
+  </div>
+
+  <!-- 路線圖 -->
+  <div class="section">
+    <div class="section-title">🗺️ 五日路線地圖</div>
+    <div class="map-container">
+      <svg viewBox="0 0 400 620" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="islandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFF8E1"/>
+            <stop offset="100%" stop-color="#FFE0B2"/>
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="0" dy="2"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.3"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <text x="40" y="60" font-size="22" opacity="0.5">〰️</text>
+        <text x="340" y="100" font-size="22" opacity="0.5">〰️</text>
+        <text x="350" y="450" font-size="22" opacity="0.5">〰️</text>
+        <text x="30" y="500" font-size="22" opacity="0.5">〰️</text>
+        <text x="60" y="280" font-size="20" opacity="0.4">🐠</text>
+        <text x="340" y="280" font-size="20" opacity="0.4">🐢</text>
+
+        <!-- 沖繩本島 -->
+        <path d="M 195,60 Q 175,75 155,85 Q 145,100 160,115 Q 175,125 180,140
+                 Q 175,155 165,170 Q 155,185 165,200 Q 175,215 185,225
+                 Q 190,240 195,255 Q 200,275 205,295 Q 210,320 215,345
+                 Q 220,380 220,420 Q 215,460 205,495 Q 195,525 180,550
+                 Q 170,565 165,575 Q 175,585 195,580 Q 215,575 225,560
+                 Q 235,540 240,510 Q 245,470 240,430 Q 235,395 230,365
+                 Q 225,335 220,305 Q 215,275 210,250 Q 205,225 215,210
+                 Q 230,200 240,185 Q 245,170 235,160 Q 220,150 215,135
+                 Q 220,120 230,105 Q 240,90 230,75 Q 215,65 195,60 Z"
+              fill="url(#islandGrad)" stroke="#FB8C00" stroke-width="2.5"
+              opacity="0.95" filter="url(#shadow)"/>
+
+        <!-- 古宇利 -->
+        <circle cx="220" cy="90" r="14" fill="url(#islandGrad)" stroke="#FB8C00" stroke-width="2" stroke-dasharray="3,2"/>
+        <text x="220" y="94" text-anchor="middle" font-size="9" fill="#BF360C">古宇利</text>
+
+        <!-- 路線（南→中→北→南） -->
+        <path d="M 195,555 L 195,495 L 205,440 L 210,400 L 215,310 L 215,170 L 205,535 L 195,575"
+              fill="none" stroke="#FF6F61" stroke-width="3"
+              stroke-dasharray="6,4" opacity="0.7"/>
+
+        <!-- DAY 1: 那霸 (波上宮、小祿) -->
+        <g transform="translate(195, 555)">
+          <circle r="18" fill="#FFAB91" stroke="white" stroke-width="3" filter="url(#shadow)"/>
+          <text y="5" text-anchor="middle" font-size="14" fill="white" font-weight="bold">1</text>
+        </g>
+        <text x="240" y="552" font-size="13" fill="#37474F" font-weight="600">🌅 波上宮 + 海灘</text>
+        <text x="240" y="567" font-size="11" fill="#78909C">那霸 / 小祿</text>
+
+        <!-- DAY 2: 沖繩王國 → 北谷 -->
+        <g transform="translate(195, 525)">
+          <circle r="11" fill="#FFAB91" stroke="white" stroke-width="2" opacity="0.7"/>
+        </g>
+        <text x="60" y="525" font-size="11" fill="#78909C">沖繩王國</text>
+
+        <g transform="translate(205, 445)">
+          <circle r="18" fill="#80DEEA" stroke="white" stroke-width="3" filter="url(#shadow)"/>
+          <text y="5" text-anchor="middle" font-size="14" fill="white" font-weight="bold">2</text>
+        </g>
+        <text x="235" y="443" font-size="13" fill="#37474F" font-weight="600">🛝 北谷／美國村</text>
+        <text x="235" y="458" font-size="11" fill="#78909C">夜景 + 入住</text>
+
+        <!-- DAY 3: 普天滿宮 + 部瀨名 -->
+        <g transform="translate(195, 405)">
+          <circle r="10" fill="#FFD180" stroke="white" stroke-width="2" opacity="0.8"/>
+        </g>
+        <text x="60" y="408" font-size="11" fill="#78909C">普天滿宮</text>
+
+        <g transform="translate(215, 310)">
+          <circle r="18" fill="#FFD180" stroke="white" stroke-width="3" filter="url(#shadow)"/>
+          <text y="5" text-anchor="middle" font-size="14" fill="white" font-weight="bold">3</text>
+        </g>
+        <text x="245" y="308" font-size="13" fill="#37474F" font-weight="600">🐢 部瀨名玻璃船</text>
+        <text x="245" y="323" font-size="11" fill="#78909C">→ 本部入住</text>
+
+        <!-- DAY 4: 美麗海 (早!) -->
+        <g transform="translate(215, 170)">
+          <circle r="20" fill="#A5D6A7" stroke="white" stroke-width="3" filter="url(#shadow)"/>
+          <text y="5" text-anchor="middle" font-size="14" fill="white" font-weight="bold">4</text>
+        </g>
+        <text x="245" y="160" font-size="13" fill="#37474F" font-weight="600">🐠 美麗海</text>
+        <text x="245" y="175" font-size="11" fill="#C62828" font-weight="700">⏰ 8:20 前到 P7！</text>
+        <text x="245" y="188" font-size="11" fill="#78909C">→ 南下豐崎</text>
+
+        <!-- DAY 5: 瀨長島 + 還車 -->
+        <g transform="translate(185, 580)">
+          <circle r="16" fill="#CE93D8" stroke="white" stroke-width="3" filter="url(#shadow)"/>
+          <text y="5" text-anchor="middle" font-size="13" fill="white" font-weight="bold">5</text>
+        </g>
+        <text x="60" y="595" font-size="13" fill="#37474F" font-weight="600">🛁 瀨長島</text>
+        <text x="60" y="608" font-size="11" fill="#78909C">→ 還車 ✈️</text>
+
+        <!-- 指南針 -->
+        <g transform="translate(60, 80)">
+          <circle r="22" fill="white" opacity="0.85" stroke="#FFAB91" stroke-width="2"/>
+          <text y="-8" text-anchor="middle" font-size="11" fill="#FF6F61" font-weight="bold">N</text>
+          <text y="18" text-anchor="middle" font-size="11" fill="#78909C">S</text>
+          <text x="-12" y="3" text-anchor="middle" font-size="11" fill="#78909C">W</text>
+          <text x="12" y="3" text-anchor="middle" font-size="11" fill="#78909C">E</text>
+          <polygon points="0,-12 -3,0 0,12 3,0" fill="#FF6F61"/>
+        </g>
+
+        <text x="200" y="35" text-anchor="middle" font-size="14" fill="#00838F" font-weight="bold">🏝️ 沖繩本島 OKINAWA</text>
+      </svg>
+
+      <div class="map-legend">
+        <div class="legend-item"><span style="background:#FFAB91; width:14px; height:14px; border-radius:50%; display:inline-block;"></span> Day 1 南部慢遊</div>
+        <div class="legend-item"><span style="background:#80DEEA; width:14px; height:14px; border-radius:50%; display:inline-block;"></span> Day 2 沖繩王國</div>
+        <div class="legend-item"><span style="background:#FFD180; width:14px; height:14px; border-radius:50%; display:inline-block;"></span> Day 3 中北部</div>
+        <div class="legend-item"><span style="background:#A5D6A7; width:14px; height:14px; border-radius:50%; display:inline-block;"></span> Day 4 美麗海</div>
+        <div class="legend-item"><span style="background:#CE93D8; width:14px; height:14px; border-radius:50%; display:inline-block;"></span> Day 5 機場</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY BY DAY -->
+  <div class="section">
+    <div class="section-title">📅 Day by Day 行程</div>
+
+    <!-- DAY 1 -->
+    <div class="day-card day-1">
+      <div class="day-header">
+        <div class="day-number">1</div>
+        <div class="day-info">
+          <h3>🛬 早班機抵達 ✕ 波上宮 + 小祿放鬆</h3>
+          <div class="day-date">9/20（日）｜南部</div>
+        </div>
+        <div class="day-theme">補眠優先</div>
+      </div>
+      <div class="day-body">
+        <ul class="schedule">
+          <li><div class="time">06:45</div><div class="activity">TPE 起飛 ✈️</div></li>
+          <li><div class="time">09:15</div><div class="activity">抵達 <strong>那霸機場</strong>，入境/領行李/接駁抓 60-90 分</div></li>
+          <li><div class="time">10:30</div><div class="activity">OTS 取車（確認嬰兒座椅+兒童座椅）</div></li>
+          <li><div class="time">11:00</div><div class="activity"><strong>波上宮</strong> + <strong>波之上海灘</strong>（鳥居+海邊神社，免費，短停 30 分鐘）</div></li>
+          <li><div class="time">12:00</div><div class="activity">午餐 <span class="tag">A&amp;W</span> <span class="tag">小祿 AEON</span> <span class="tag">琉冰</span></div></li>
+          <li><div class="time">13:30</div><div class="activity">飯店<strong>寄行李</strong>（拿房卡前先放行李）→ <strong>AEON Mall 小祿那霸</strong>休息／補貨／嬰兒車上小睡</div></li>
+          <li><div class="time">15:00</div><div class="activity">正式 Check-in 飯店 → 寶寶午睡</div></li>
+          <li><div class="time">17:30</div><div class="activity">國際通簡單晚餐+散步（不血拼）</div></li>
+          <li><div class="time">19:30</div><div class="activity">回飯店早睡 😴</div></li>
+        </ul>
+        <div class="day-note">
+          💡 <strong>備案</strong>：太累就跳過國際通，AEON 美食街吃完直接回飯店。<br>
+          ☔ <strong>下雨備案</strong>：波上海灘 → <strong>沖繩縣立博物館・美術館 OKIMU</strong>（室內、有冷氣）。
+        </div>
+        <div class="food-tag">🍽️ 推薦：<strong>暖暮拉麵</strong>（機場店）｜<strong>A&amp;W</strong>｜<strong>ポーたま 那霸機場店</strong></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card day-2">
+      <div class="day-header">
+        <div class="day-number">2</div>
+        <div class="day-info">
+          <h3>🛝 沖繩王國 ✕ 美國村夜景</h3>
+          <div class="day-date">9/21（一）<span class="holiday-warning">敬老日</span>｜南→中</div>
+        </div>
+        <div class="day-theme">主場：玉泉洞</div>
+      </div>
+      <div class="day-body">
+        <ul class="schedule">
+          <li><div class="time urgent">07:30</div><div class="activity">起床早出門（連假！）</div></li>
+          <li><div class="time">09:00</div><div class="activity">退房出發 → 沖繩王國（30-45 分）</div></li>
+          <li><div class="time">09:45</div><div class="activity">抵達換票、廁所、準備背巾</div></li>
+          <li><div class="time">10:30</div><div class="activity"><span class="star">⭐ Super Eisa 太鼓秀</span>（必看，30 分鐘）</div></li>
+          <li><div class="time">11:10</div><div class="activity"><strong>玉泉洞</strong> + 文化村（10 個月用背巾，5 歲穿好走的鞋）</div></li>
+          <li><div class="time">12:30</div><div class="activity">園區午餐</div></li>
+          <li><div class="time">14:00</div><div class="activity">出發北谷／宜野灣（45-60 分，車上讓小孩睡）</div></li>
+          <li><div class="time">15:30</div><div class="activity">飯店 Check-in 休息</div></li>
+          <li><div class="time">17:30</div><div class="activity"><strong>美國村夕陽</strong> + 夜景（燈亮後最美） 🌅</div></li>
+          <li><div class="time">19:00</div><div class="activity">晚餐 <span class="tag">迴轉壽司市場</span> <span class="tag">Hamaya Soba</span> <span class="tag">Transit Cafe</span></div></li>
+        </ul>
+        <div class="day-note">
+          ⚠️ <strong>連假提醒</strong>：沖繩王國 10:30 Eisa 秀人爆滿，至少提前 20 分卡位。Habu 秀（蛇）就跳過。
+        </div>
+        <div class="food-tag">🍽️ 推薦：<strong>迴轉壽司市場 美浜店</strong>｜<strong>Blue Seal 冰淇淋</strong>｜<strong>Transit Cafe</strong></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card day-3">
+      <div class="day-header">
+        <div class="day-number">3</div>
+        <div class="day-info">
+          <h3>⛩️ 普天滿宮 ✕ 部瀨名玻璃船</h3>
+          <div class="day-date">9/22（二）<span class="holiday-warning">國民休日</span>｜中→北</div>
+        </div>
+        <div class="day-theme">老婆 + 5 歲都開心</div>
+      </div>
+      <div class="day-body">
+        <ul class="schedule">
+          <li><div class="time">07:30</div><div class="activity">起床、早餐</div></li>
+          <li><div class="time">09:00</div><div class="activity">退房 → <strong>普天滿宮</strong>（15-25 分）</div></li>
+          <li><div class="time">09:30</div><div class="activity">⛩️ 普天滿宮（45 分；洞窟參拜要事先打 098-892-3344 確認）</div></li>
+          <li><div class="time">10:15</div><div class="activity">開往 <strong>部瀨名海中公園</strong>（連假抓 60-75 分）</div></li>
+          <li><div class="time">11:30</div><div class="activity"><span class="star">⭐ 部瀨名玻璃船</span>（4-10 月 9:10 起每 20 分一班，12:30 停。優先玻璃船，海中塔 50 階樓梯帶嬰兒太累）</div></li>
+          <li><div class="time">13:00</div><div class="activity">午餐 <span class="tag">道之驛 許田</span> <span class="tag">百年古家 大家</span> <span class="tag">燒肉本部牧場</span></div></li>
+          <li><div class="time">14:30</div><div class="activity">前往本部／名護（中途休息）</div></li>
+          <li><div class="time">15:30</div><div class="activity"><strong>看體力決定</strong>：有體力 → <strong>古宇利大橋短停 30 分</strong>拍照；累 → 直接飯店</div></li>
+          <li><div class="time">17:00</div><div class="activity">Check-in 本部飯店、小孩洗澡</div></li>
+          <li><div class="time">18:30</div><div class="activity">晚餐 <span class="tag">岸本食堂</span> <span class="tag">海邦丸</span></div></li>
+        </ul>
+        <div class="day-note">
+          🦐 <strong>KOURI SHRIMP 蝦蝦飯</strong>不必吃！連假排 1.5 小時+，外帶或換店比較聰明。<br>
+          ⛩️ <strong>普天滿宮地下洞窟</strong>：行前 1-2 週直接打電話確認 9/22 是否開放、是否要預約。
+        </div>
+        <div class="food-tag">🍽️ 推薦：<strong>道之驛許田</strong>（沖繩そば）｜<strong>百年古家大家</strong>（紅瓦古厝）</div>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card day-4">
+      <div class="day-header">
+        <div class="day-number">4</div>
+        <div class="day-info">
+          <h3>🐳 美麗海全日 ✕ 南下回機場</h3>
+          <div class="day-date">9/23（三）<span class="holiday-warning">秋分日</span>｜北→南</div>
+        </div>
+        <div class="day-theme">⭐ 行程核心</div>
+      </div>
+      <div class="day-body">
+        <ul class="schedule">
+          <li><div class="time urgent">07:00</div><div class="activity">起床（連假必須早起搶停車位！）</div></li>
+          <li><div class="time urgent">07:30</div><div class="activity">飯店早餐+退房</div></li>
+          <li><div class="time urgent">08:20</div><div class="activity"><span class="star">⭐ 抵達 P7 北口停車場</span>（8:30 開門，9:00 後可能滿）</div></li>
+          <li><div class="time">08:30</div><div class="activity">入館 → 黑潮之海、珊瑚、熱帶魚</div></li>
+          <li><div class="time">09:30</div><div class="activity">鬼蝠魟餵食</div></li>
+          <li><div class="time">11:30</div><div class="activity"><span class="star">⭐ 海豚秀</span>（免費，提早 20 分卡位）</div></li>
+          <li><div class="time">12:10</div><div class="activity">午餐／餵奶／換尿布（館內或 Ocean Blue 海景餐廳）</div></li>
+          <li><div class="time">13:15</div><div class="activity">海龜館、海牛館、深海區、紀念品</div></li>
+          <li><div class="time">15:00</div><div class="activity"><span class="star">⭐ 黑潮之海鯨鯊餵食</span>（必看！）</div></li>
+          <li><div class="time">15:30</div><div class="activity"><strong>翡翠沙灘</strong> 或 <strong>備瀨福木林</strong>散步（推車友善）</div></li>
+          <li><div class="time">16:00</div><div class="activity">出發南下（連假回程塞，抓 2-2.5 小時）</div></li>
+          <li><div class="time">18:30</div><div class="activity">抵達豐崎/小祿 → Check-in</div></li>
+          <li><div class="time">19:30</div><div class="activity">晚餐 <span class="tag">iias</span> <span class="tag">瀨長島</span> <span class="tag">AEON 小祿</span></div></li>
+        </ul>
+        <div class="day-note">
+          🎫 <strong>美麗海票線上預購</strong>：KKday/Klook 9 折 + 不用排隊買票，省 15-30 分鐘。<br>
+          🅿️ <strong>停車場</strong>：P7 最近，免費。9 點後可能要繞到 P5/P9。<br>
+          ☔ 下雨備案：增加館內時間，跳過翡翠沙灘。
+        </div>
+        <div class="food-tag">🍽️ 推薦：館內 <strong>Ocean Blue</strong>（海景）｜<strong>岸本食堂八重岳店</strong>（沖繩そば）</div>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card day-5">
+      <div class="day-header">
+        <div class="day-number">5</div>
+        <div class="day-info">
+          <h3>🛁 瀨長島 ✕ 還車回家</h3>
+          <div class="day-date">9/24（四）平日 ✓｜南部</div>
+        </div>
+        <div class="day-theme">緩衝日</div>
+      </div>
+      <div class="day-body">
+        <ul class="schedule">
+          <li><div class="time">08:30</div><div class="activity">起床、慢慢整理</div></li>
+          <li><div class="time">10:00</div><div class="activity">退房（行李上車）</div></li>
+          <li><div class="time">10:45</div><div class="activity"><strong>瀨長島 Umikaji Terrace</strong>（看飛機、白色希臘風小店）✈️</div></li>
+          <li><div class="time">12:00</div><div class="activity">午餐 <span class="tag">幸福鬆餅 瀨長島店</span> <span class="tag">氾濫漢堡</span></div></li>
+          <li><div class="time">13:30</div><div class="activity"><strong>iias 豐崎</strong>或 <strong>Outlet Ashibinaa</strong> 少量採買（不血拼）</div></li>
+          <li><div class="time">15:45</div><div class="activity">加油+整理車內+分裝行李</div></li>
+          <li><div class="time urgent">16:30</div><div class="activity"><span class="star">⭐ 還車目標（不晚於 16:45）</span></div></li>
+          <li><div class="time">17:30</div><div class="activity">抵達機場 → Check-in → 安檢 → 晚餐</div></li>
+          <li><div class="time">20:20</div><div class="activity">✈️ 起飛回家</div></li>
+          <li><div class="time">20:55</div><div class="activity">抵達 TPE 🏠</div></li>
+        </ul>
+        <div class="day-note">
+          ⏰ <strong>還車時間嚴守 16:30-16:45</strong>：20:20 班機，國際線起飛前 2 小時 Check-in 截止 = 18:20 截止。<br>
+          🛍️ Outlet/iias 只當「回程緩衝」，不安排成血拼日，避免時間吃緊。
+        </div>
+        <div class="food-tag">🍽️ 機場最後吃：<strong>暖暮拉麵 機場店</strong>｜免稅店買 <strong>御菓子御殿 紅芋塔</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 預算 -->
+  <div class="section">
+    <div class="section-title">💰 預算總覽</div>
+    <table class="budget-table">
+      <tr><td>✈️ 機票（已知）</td><td>45,015 TWD</td></tr>
+      <tr><td>🚙 租車 60,200 JPY</td><td>12,642 TWD</td></tr>
+      <tr><td>🏨 4 晚住宿（連假價）</td><td>20,000–24,000 TWD</td></tr>
+      <tr><td>🍽️ 餐食（5 天 3 大+小孩）</td><td>18,000–25,000 TWD</td></tr>
+      <tr><td>🎫 門票（美麗海+王國+部瀨名）</td><td>5,000–7,000 TWD</td></tr>
+      <tr><td>⛽ 油費+停車+高速+安全椅</td><td>5,000 TWD</td></tr>
+      <tr class="total"><td>全團不含購物</td><td>約 105,000–119,000 TWD</td></tr>
+      <tr><td>🛍️ 購物（個人預留）</td><td>+10,000–15,000 / 人</td></tr>
+      <tr class="total"><td>每位大人均攤總額</td><td>約 45,000–50,000 TWD</td></tr>
+    </table>
+    <div class="budget-note">
+      🎫 <strong>FunPASS 算清楚</strong>：3 大人單買美麗海(2,180) + 王國(2,000) + 部瀨名玻璃船(1,560) = <strong>5,740 JPY/人</strong>。FunPASS 約 NT$1,080 ≈ 5,180 JPY，<u>除非剛好涵蓋你要的 3 項否則單買更彈性</u>。<br>
+      💡 美麗海建議線上預購（KKday/Klook 9 折省 ~200 JPY/人）。
+    </div>
+  </div>
+
+  <!-- 行前 To-do（連假版） -->
+  <div class="section">
+    <div class="section-title">🚨 行前 To-do（優先順序）</div>
+    <ul class="booking-list">
+      <li class="priority"><div class="step-num">1</div><div><strong>本週內訂完 4 晚住宿</strong>（連假房型會雪崩消失，現在 Y's Inn / La'gent / Mahaina / GranView 都還有）</div></li>
+      <li class="priority"><div class="step-num">2</div><div><strong>線上預購美麗海票</strong>（KKday/Klook 9 折，3 大人省 ~600 JPY）</div></li>
+      <li class="priority"><div class="step-num">3</div><div><strong>確認租車含 2 張兒童座椅</strong>（嬰兒+幼兒），不確認當天會被拒租</div></li>
+      <li><div class="step-num">4</div><div>用 Tabirai 比價，看 60,200 JPY 是否還可下殺到 50,000-55,000</div></li>
+      <li><div class="step-num">5</div><div>申請日文駕照譯本（監理所，3 大人都辦比較有彈性）</div></li>
+      <li><div class="step-num">6</div><div>打電話確認普天滿宮 9/22 洞窟參拜開放（098-892-3344）</div></li>
+      <li><div class="step-num">7</div><div>線上預訂 Day 3 晚餐（連假名店訂位最穩）</div></li>
+      <li><div class="step-num">8</div><div>買 eSIM / WiFi 機（自駕 Google Maps 必備）</div></li>
+      <li><div class="step-num">9</div><div>嬰兒物品打包（背巾、推車雨罩、退燒貼、電解水）</div></li>
+      <li><div class="step-num">10</div><div>備 30,000 JPY 現金（小店、海邊攤販不收卡）</div></li>
+    </ul>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section">
+    <div class="section-title">💡 親子旅行 + 連假撇步</div>
+    <div class="tips-grid">
+      <div class="tip-box urgent">
+        <strong>🚨 連假飯店</strong><br>
+        9/21-9/22 漲價 30-50%，<u>本週內訂完</u>。輸入「3 大 + 1 兒童 + 1 嬰兒」搜，不要用 2 大房型！
+      </div>
+      <div class="tip-box urgent">
+        <strong>🅿️ 美麗海停車</strong><br>
+        9/23 連假，8:30 開門前 10 分到 P7。9:00 後可能要繞 P5/P9。線上預購票省排隊！
+      </div>
+      <div class="tip-box">
+        <strong>🚗 兒童座椅</strong><br>
+        6 歲以下必坐，租車預約 2 張（嬰兒+幼兒）。不租會被拒租！
+      </div>
+      <div class="tip-box">
+        <strong>🍼 補給</strong><br>
+        西松屋、Birthday、AEON 滿地是，缺啥都能補。比台灣便宜 10-20%。
+      </div>
+      <div class="tip-box">
+        <strong>🌊 9 月水母</strong><br>
+        是水母季尾，<u>正規海水浴場有防護網內才下水</u>，自然海灘只下腳踩水即可。
+      </div>
+      <div class="tip-box">
+        <strong>☔ 颱風備案</strong><br>
+        9 月仍颱風尾季，前 3 天看 Windy/JMA。雨天：DMM 水族館、Outlet、OKIMU 博物館。
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <div class="section-title">📝 行前 Checklist</div>
+    <div class="checklist">
+      <div>☐ 護照（效期 6 個月+）</div>
+      <div>☐ 嬰兒護照</div>
+      <div>☐ 國際駕照+日文譯本</div>
+      <div>☐ 機票電子單</div>
+      <div>☐ 4 晚飯店訂房單</div>
+      <div>☐ OTS 租車單+兒童座椅</div>
+      <div>☐ 美麗海線上票券</div>
+      <div>☐ 旅平險+醫療險</div>
+      <div>☐ 嬰兒推車+雨罩</div>
+      <div>☐ 嬰兒背巾</div>
+      <div>☐ 奶瓶+奶粉+副食品（前 2 天份）</div>
+      <div>☐ 嬰兒退燒貼+電解水</div>
+      <div>☐ 防曬乳+遮陽帽</div>
+      <div>☐ 兒童換洗衣物 ×6 套</div>
+      <div>☐ eSIM / WiFi 機</div>
+      <div>☐ 30,000 JPY 現金 + 信用卡</div>
+      <div>☐ 充電器+轉接頭</div>
+      <div>☐ 兒童藥品（退燒、腸胃）</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Made with <span class="heart">♥</span> for your Okinawa family adventure<br>
+    🌺 旅途愉快 🌴 路上小心 🐠 連假人多保持耐心 ❤️
+  </div>
+
+</div>
+</body>
+</html>
